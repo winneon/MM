@@ -22,6 +22,7 @@ public class MM extends JavaPlugin {
 		pm = getServer().getPluginManager();
 		
 		new Config(this);
+		new Utils();
 		
 		configs = new String[] {
 				
@@ -36,6 +37,7 @@ public class MM extends JavaPlugin {
 			
 		}
 		
+		getCommand("mm").setExecutor(new CommandMm(this));
 		logging().log(Level.INFO, "MM has been fully enabled. Enjoy!");
 		
 	}

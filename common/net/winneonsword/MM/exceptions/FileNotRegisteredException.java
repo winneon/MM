@@ -6,7 +6,7 @@ public class FileNotRegisteredException extends Exception {
 	
 	public FileNotRegisteredException(String file){
 		
-		super("The file '" + file + "' is already registered!");
+		super("The file '" + file + "' is not registered!");
 		
 	}
 
