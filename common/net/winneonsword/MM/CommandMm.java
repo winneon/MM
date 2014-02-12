@@ -42,20 +42,17 @@ public class CommandMm implements CommandExecutor {
 					
 					for (Method m : getClass().getMethods()){
 						
-						MMArg anno = m.getAnnotation(MMArg.class);
+						if (m.getAnnotation(MMArg.class) != null){
 						
-						if (anno != null){
+							MMArg anno = m.getAnnotation(MMArg.class);
+							System.out.println("Found match!");
 							
 							for (String arg : anno.refs()){
 								
-								if (arg.equalsIgnoreCase(args[0])){
+								if (arg.equalsIgnoreCase(args[0]) && s.hasPermission(anno.perm())){
 									
-									if (s.hasPermission(anno.perm())){
-										
-										triggered = true;
-										m.invoke(this, s, args);
-										
-									}
+									triggered = true;
+									m.invoke(this, s, args);
 									
 								}
 								
