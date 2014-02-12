@@ -32,7 +32,7 @@ public class MM extends JavaPlugin {
 		for (String config : configs){
 			
 			Config.registerConfig(config);
-			logging().log(Level.INFO, "Registered the config '" + config + "'.");
+			logging().log(Level.INFO, "&eRegistered the config '" + config + "'.");
 			
 		}
 		
@@ -43,7 +43,14 @@ public class MM extends JavaPlugin {
 	@Override
 	public void onDisable(){
 		
+		for (String config : configs){
+			
+			Config.saveConfig(config);
+			logging().log(Level.INFO, "&eSaved the config '" + config + "'.");
+			
+		}
 		
+		logging().log(Level.INFO, "&cMM has been fully disabled. Bye-bye.");
 		
 	}
 	

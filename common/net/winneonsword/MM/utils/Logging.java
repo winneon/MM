@@ -14,6 +14,7 @@ public class Logging {
 	public Logging(MM main){
 		
 		logger = main.getLogger();
+		colours = new HashMap<String, String>();
 		
 		colours.put("0", "\u001B[0;30m");
 		colours.put("1", "\u001B[0;34m");

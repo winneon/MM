@@ -21,6 +21,7 @@ public class Config {
 	public Config(MM main){
 		
 		this.main = main;
+		configs = new HashMap<File, YamlConfiguration>();
 		
 	}
 	
@@ -28,7 +29,7 @@ public class Config {
 		
 		for (File file : configs.keySet()){
 			
-			if (file.getName().equals("name")){
+			if (file.getName().equals(name + ".yml")){
 				
 				return file;
 				
@@ -150,18 +151,26 @@ public class Config {
 		
 		try {
 			
-			OutputStream out = new FileOutputStream(file);
-			byte[] buf = new byte[1024];
-			int len;
-			
-			while ((len = in.read(buf)) > 0){
+			if (in == null){
 				
-				out.write(buf, 0, len);
+				file.createNewFile();
+				
+			} else {
+				
+				OutputStream out = new FileOutputStream(file);
+				byte[] buf = new byte[1024];
+				int len;
+				
+				while ((len = in.read(buf)) > 0){
+					
+					out.write(buf, 0, len);
+					
+				}
+				
+				out.close();
+				in.close();
 				
 			}
-			
-			out.close();
-			in.close();
 			
 		} catch (Exception e){
 			
