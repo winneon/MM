@@ -12,16 +12,10 @@ import static net.winneonsword.MM.Utils.*;
 public class CommandMm implements CommandExecutor {
 	
 	private MM main;
-	private String[] help;
 	
 	public CommandMm(MM main){
 		
 		this.main = main;
-		help = new String[] {
-				
-				MM + "Help Panel"
-				
-		};
 		
 	}
 	
@@ -32,7 +26,7 @@ public class CommandMm implements CommandExecutor {
 			
 			if (args.length == 0){
 				
-				s(s, "Try &6/mm help&d.");
+				s(s, "Try &6/mm ?&d.");
 				
 			} else {
 				
@@ -42,17 +36,24 @@ public class CommandMm implements CommandExecutor {
 					
 					for (Method m : getClass().getMethods()){
 						
-						if (m.getAnnotation(MMArg.class) != null){
+						MMArg anno = m.getAnnotation(MMArg.class);
 						
-							MMArg anno = m.getAnnotation(MMArg.class);
-							System.out.println("Found match!");
+						if (anno != null){
 							
 							for (String arg : anno.refs()){
 								
-								if (arg.equalsIgnoreCase(args[0]) && s.hasPermission(anno.perm())){
+								if (arg.equalsIgnoreCase(args[0])){
 									
-									triggered = true;
-									m.invoke(this, s, args);
+									if (s.hasPermission(anno.perm())){
+										
+										triggered = true;
+										m.invoke(this, s, args);
+										
+									} else {
+										
+										s(s, "&cYou don't have permission for that!");
+										
+									}
 									
 								}
 								
@@ -64,7 +65,7 @@ public class CommandMm implements CommandExecutor {
 					
 					if (!(triggered)){
 						
-						s(s, help);
+						s(s, "&cUnknown argument! Try &6/mm ?&c.");
 						
 					}
 					
@@ -87,10 +88,24 @@ public class CommandMm implements CommandExecutor {
 		
 	}
 	
+	@MMArg(refs = { "?", "help" })
+	public void help(CommandSender s, String[] args){
+		
+		s(s, new String[] {
+				
+				MM + "Help Panel",
+				"&5- &d/mm ? &5// &dThe main help menu.",
+				"&5- &d/mm disable &5// &dDisable MM. &5STAFF"
+				
+		});
+		
+	}
+	
 	@MMArg(refs = { "disable" }, perm = "wa.staff")
 	public void disable(CommandSender s, String[] args){
 		
-		System.out.println("test");
+		main.pm().disablePlugin(main);
+		s(s, "Disabled MM. To enable it, run &6/pm enable MM&d.");
 		
 	}
 	

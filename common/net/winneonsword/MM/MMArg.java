@@ -10,6 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface MMArg {
 	
 	public String[] refs();
-	public String perm();
+	public String perm() default "wa.member";
 	
 }
