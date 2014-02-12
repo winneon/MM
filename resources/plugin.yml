@@ -1,3 +1,8 @@
 name: MM
 version: 1.0
 main: net.winneonsword.MM.MM
+
+command:
+    mm:
+        description: The main MM command.
+        usage: /mm
