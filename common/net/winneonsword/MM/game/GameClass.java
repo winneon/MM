@@ -23,4 +23,11 @@ public enum GameClass {
 		
 	}
 	
+	@Override
+	public String toString(){
+		
+		return name;
+		
+	}
+	
 }

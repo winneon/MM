@@ -2,6 +2,7 @@ package net.winneonsword.MM;
 
 import java.util.logging.Level;
 
+import net.winneonsword.MM.game.Gameplay;
 import net.winneonsword.MM.utils.Config;
 import net.winneonsword.MM.utils.Logging;
 
@@ -12,6 +13,7 @@ public class MM extends JavaPlugin {
 	
 	private Logging logging;
 	private PluginManager pm;
+	private Gameplay game;
 	
 	private String[] configs;
 	
@@ -20,6 +22,7 @@ public class MM extends JavaPlugin {
 		
 		logging = new Logging(this);
 		pm = getServer().getPluginManager();
+		game = new Gameplay(this);
 		
 		new Config(this);
 		new Utils();
@@ -65,6 +68,12 @@ public class MM extends JavaPlugin {
 	public PluginManager pm(){
 		
 		return pm;
+		
+	}
+	
+	public Gameplay game(){
+		
+		return game;
 		
 	}
 	
