@@ -1,6 +1,7 @@
 name: MM
 version: 1.0
 main: net.winneonsword.MM.MM
+depend: [WCAPI]
 
 commands:
     mm:

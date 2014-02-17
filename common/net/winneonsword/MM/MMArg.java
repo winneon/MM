@@ -11,5 +11,6 @@ public @interface MMArg {
 	
 	public String[] refs();
 	public String perm() default "wa.member";
+	public boolean player() default false;
 	
 }

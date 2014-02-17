@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import net.winneonsword.MM.MM;
 import net.winneonsword.MM.exceptions.NoSuchPlayerException;
 import net.winneonsword.MM.exceptions.PlayerAlreadyExistsException;
@@ -15,6 +18,8 @@ public class Gameplay {
 	
 	private boolean open;
 	private HashMap<String, MMPlayer> players;
+	
+	private Location arena;
 	
 	public Gameplay(MM main){
 		
@@ -38,6 +43,7 @@ public class Gameplay {
 			} catch (NoSuchPlayerException e){
 				
 				main.logging().log(Level.SEVERE, "The player '" + name + "' does not exist!");
+				e.printStackTrace();
 				
 				return null;
 				
@@ -47,17 +53,17 @@ public class Gameplay {
 		
 	}
 	
-	public boolean registerPlayer(String name, GameClass clazz){
+	public boolean registerPlayer(Player p, GameClass clazz){
 		
-		if (players.containsKey(name)){
+		if (players.containsKey(p.getName())){
 			
 			try {
 				
-				throw new PlayerAlreadyExistsException(name);
+				throw new PlayerAlreadyExistsException(p.getName());
 				
 			} catch (PlayerAlreadyExistsException e){
 				
-				main.logging().log(Level.SEVERE, "The player '" + name + "' is already registered!");
+				main.logging().log(Level.SEVERE, "The player '" + p.getName() + "' is already registered!");
 				
 				return false;
 				
@@ -65,10 +71,12 @@ public class Gameplay {
 			
 		} else {
 			
-			MMPlayer mmp = new MMPlayer(name);
-			mmp.setGameClass(clazz);
+			MMPlayer mmp = new MMPlayer(p.getName());
 			
-			players.put(name, mmp);
+			mmp.setGameClass(clazz);
+			mmp.setLastLocation(p.getLocation());
+			
+			players.put(p.getName(), mmp);
 			
 			return true;
 			
@@ -141,6 +149,18 @@ public class Gameplay {
 			return null;
 			
 		}
+		
+	}
+	
+	public Location getArena(){
+		
+		return arena;
+		
+	}
+	
+	public void setArena(Location arena){
+		
+		this.arena = arena;
 		
 	}
 	

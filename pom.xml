@@ -14,12 +14,21 @@
 			<id>bukkit-repo</id>
 			<url>http://repo.bukkit.org/content/repositories/snapshots/</url>
 		</repository>
+		<repository>
+			<id>WCAPI</id>
+			<url>https://github.com/lyokofirelyte/WCAPI/blob/mvn-repo/</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
 			<version>${bukkit}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.lyokofirelyte</groupId>
+			<artifactId>WCAPI</artifactId>
+			<version>5</version>
 		</dependency>
 	</dependencies>
 	<build>
